@@ -33,7 +33,7 @@ Before( { tags: "@login" }, async function(scenario){
     if ((loginHook === undefined) || (loginHook === false)){
         loginHook = await CommonFlows.login(scenario, isCookieEnabled);
         isCookieEnabled = true;
-        if (!configuration.browser.parallel) defaultProjectId = await CommonFlows.createDefaultProject();
+        defaultProjectId = await CommonFlows.createDefaultProject();
     }
 });
 
@@ -59,6 +59,6 @@ Before({ tags: "@createBugStory or @createFeatureStory" }, async function(scenar
 });
 
 AfterAll({ tags: "@ui" },async function(){
-    if (!configuration.browser.parallel) await CommonFlows.deleteDefaultProject(defaultProjectId);
+    await CommonFlows.deleteDefaultProject(defaultProjectId);
     await DriverFactory.closeDriver();
 });
