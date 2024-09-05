@@ -22,12 +22,21 @@ class StoriesPage {
     
     // Botón de Start (para intentar iniciar la historia)
     startStoryButton = By.css('button[data-aid="StateButton"][data-destination-state="start"]');
+
+    // Selector para el botón Finish
+    finishButton = By.css('button[data-destination-state="finish"]');
     
     // Dropdown de puntos al presionar Start
     storyPointsDropdown = By.css('.dropdown_menu.search');
     
     // Opción de puntos Unestimated
     unestimatedOption = By.css('li[data-value="-1"] a');
+
+    // Opción de puntos desde 0 hasta 3 (nuevos selectores añadidos)
+    pointsOption0 = By.css('li[data-value="0"] a');
+    pointsOption1 = By.css('li[data-value="1"] a');
+    pointsOption2 = By.css('li[data-value="2"] a');
+    pointsOption3 = By.css('li[data-value="3"] a');
 
     // Botón Collapse
     collapseButton = By.css('button[id^="story_close_"], button[title="Save & collapse"]'); 
