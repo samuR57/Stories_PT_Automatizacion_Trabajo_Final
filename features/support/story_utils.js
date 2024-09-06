@@ -1,9 +1,10 @@
 const DriverFactory = require("../../core/ui/driverFactory");
 const StoriesPage = require("../../main/ui/stories_page");
-const { until } = require("selenium-webdriver");
+const { until, Key } = require("selenium-webdriver");
 const chai = require("chai");
 const expect = chai.expect;
 const configuration = require("../../configuration.json");
+const RandomValues = require("./random_values");
 
 class StoryUtils {
 
@@ -26,6 +27,48 @@ class StoryUtils {
 
         const saveStoryButton = await DriverFactory.myDriver.findElement(StoriesPage.saveStoryButton);
         await saveStoryButton.click();
+    }
+
+    // Crea múltiples historias en el backlog y luego refresca la página
+    static async createMultipleStories(numberOfStories) {
+        for (let i = 0; i < numberOfStories; i++) {
+            const randomTitle = RandomValues.getRandomValues(`<StoryTitle, 6>`);
+            await this.createStory(randomTitle, "");
+        }
+
+        await DriverFactory.myDriver.navigate().refresh();
+        await DriverFactory.myDriver.sleep(5000);  // Ajusta el tiempo de espera si es necesario
+    }
+
+    // Mueve cualquier historia dentro del backlog
+    static async moveStoryInBacklog() {
+        const storiesInBacklog = await DriverFactory.myDriver.wait(
+            until.elementsLocated(StoriesPage.storyToMove),
+            configuration.browser.timeout
+        );
+
+        if (storiesInBacklog.length === 0) {
+            throw new Error("No stories found in the backlog");
+        }
+
+        const storyToMove = storiesInBacklog[0];
+        const lastStory = storiesInBacklog[storiesInBacklog.length - 1];
+
+        await DriverFactory.myDriver.executeScript("arguments[0].scrollIntoView(true);", storyToMove);
+        await DriverFactory.myDriver.executeScript("arguments[0].scrollIntoView(true);", lastStory);
+
+        await DriverFactory.myDriver.wait(until.elementIsVisible(storyToMove), configuration.browser.timeout);
+        await DriverFactory.myDriver.wait(until.elementIsVisible(lastStory), configuration.browser.timeout);
+
+        const actions = DriverFactory.myDriver.actions({bridge: true});
+        await actions.dragAndDrop(storyToMove, lastStory).perform();
+    }
+
+    // Verifica que la historia se haya movido a la nueva posición
+    static async verifyStoryMovedInBacklog() {
+        const stories = await DriverFactory.myDriver.findElements(StoriesPage.backlogStory);
+        const firstStoryTitle = await stories[0].getText();
+        return firstStoryTitle;
     }
 
     // Verifica que la historia aparezca en el backlog
@@ -100,8 +143,6 @@ class StoryUtils {
         if (collapseButton) {
             await collapseButton.click();
         }
-
-        await DriverFactory.myDriver.sleep(2000);
 
         const myWorkCounter = await DriverFactory.myDriver.findElement(StoriesPage.myWorkCounter);
         const counterText = await myWorkCounter.getText();

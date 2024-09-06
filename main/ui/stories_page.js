@@ -32,7 +32,7 @@ class StoriesPage {
     // Opción de puntos Unestimated
     unestimatedOption = By.css('li[data-value="-1"] a');
 
-    // Opción de puntos desde 0 hasta 3 (nuevos selectores añadidos)
+    // Opción de puntos desde 0 hasta 3
     pointsOption0 = By.css('li[data-value="0"] a');
     pointsOption1 = By.css('li[data-value="1"] a');
     pointsOption2 = By.css('li[data-value="2"] a');
@@ -47,6 +47,12 @@ class StoriesPage {
     
     // Contador de My Work
     myWorkCounter = By.css('div.MuiListItemSecondaryAction-root.panel_counter');
+
+    // Selector actualizado para las historias en el backlog
+    storyToMove = By.css('span[data-aid="StoryPreviewItem__title"]');  // Seleccionamos los títulos de las historias visibles
+
+    // Posición superior del backlog (para mover la historia)
+    backlogTopPosition = By.css('div.tn-panel_loom div[title="Current/backlog"]');
 }
 
 module.exports = new StoriesPage();
