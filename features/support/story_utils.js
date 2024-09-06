@@ -37,7 +37,7 @@ class StoryUtils {
         }
 
         await DriverFactory.myDriver.navigate().refresh();
-        await DriverFactory.myDriver.sleep(5000);  // Ajusta el tiempo de espera si es necesario
+        await DriverFactory.myDriver.sleep(5000);
     }
 
     // Mueve cualquier historia dentro del backlog
@@ -89,6 +89,60 @@ class StoryUtils {
             configuration.browser.timeout
         );
         await startStoryButton.click();
+    }
+
+    // Presiona el botón "Finish" de la historia
+    static async pressFinishButton() {
+        const finishButton = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesPage.finishButton),
+            configuration.browser.timeout
+        );
+        await finishButton.click();
+    }
+
+    // Presiona el botón "Deliver" de la historia
+    static async pressDeliverButton() {
+        const deliverButton = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesPage.deliverButton),
+            configuration.browser.timeout
+        );
+        await deliverButton.click();
+    }
+
+    // Presiona el botón "Accept" de la historia
+    static async pressAcceptButton() {
+        const acceptButton = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesPage.acceptButton),
+            configuration.browser.timeout
+        );
+        await acceptButton.click();
+    }
+
+    // Añadir un bloqueador a la historia
+    static async addBlocker() {
+        const addBlockerButton = await DriverFactory.myDriver.wait(until.elementLocated(StoriesPage.addBlockerButton), 10000);
+        await addBlockerButton.click();
+
+        const blockerInput = await DriverFactory.myDriver.wait(until.elementLocated(StoriesPage.blockerInputField), 10000);
+        const randomBlockerText = RandomValues.getRandomValues('<BlockerReason,6>');
+        await blockerInput.sendKeys(randomBlockerText);
+
+        const addBlockerConfirmButton = await DriverFactory.myDriver.wait(until.elementLocated(StoriesPage.addBlockerConfirmButton), 10000);
+        await addBlockerConfirmButton.click();
+
+        const cancelBlockerButton = await DriverFactory.myDriver.wait(until.elementLocated(StoriesPage.cancelBlockerButton), 10000);
+        await cancelBlockerButton.click();
+    }
+
+    // Verifica si el cuadro de advertencia aparece al intentar aceptar la historia bloqueada
+    static async verifyWarningPopupAndCancel() {
+        const warningPopup = await DriverFactory.myDriver.wait(until.elementLocated(StoriesPage.warningPopup), 10000);
+        const warningText = await warningPopup.getText();
+        expect(warningText).to.contain("Accept With Unresolved Items?");
+
+        // Presiona el botón "Cancel" en el cuadro de advertencia
+        const cancelButtonInWarning = await DriverFactory.myDriver.wait(until.elementLocated(StoriesPage.cancelButtonInWarning), 10000);
+        await cancelButtonInWarning.click();
     }
 
     // Selecciona una opción de puntos aleatoria para la historia
@@ -148,6 +202,20 @@ class StoryUtils {
         const counterText = await myWorkCounter.getText();
         const currentCount = parseInt(counterText, 10);
         expect(currentCount).to.equal(1);
+    }
+    // Ingresa en una historia creada
+    static async enterStory() {
+        const storyInBacklog = await DriverFactory.myDriver.findElement(StoriesPage.backlogStory);
+        await storyInBacklog.click();
+    }
+
+    // Método que intenta mover la historia "Started" debajo de las "Unstarted"
+    static async moveStartedStoryBelowUnstarted() {
+        const storiesInBacklog = await DriverFactory.myDriver.findElements(StoriesPage.backlogStory);
+        const startedStory = storiesInBacklog[0];
+        const unstartedStory = storiesInBacklog[1];
+        const actions = DriverFactory.myDriver.actions({ bridge: true });
+        await actions.dragAndDrop(startedStory, unstartedStory).perform();
     }
 }
 
