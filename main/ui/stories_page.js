@@ -23,8 +23,32 @@ class StoriesPage {
     // Botón de Start (para intentar iniciar la historia)
     startStoryButton = By.css('button[data-aid="StateButton"][data-destination-state="start"]');
 
-    // Selector para el botón Finish
-    finishButton = By.css('button[data-destination-state="finish"]');
+    // Selector para el botón Finish (generalizado)
+    finishButton = By.css('div.state.row > div > span > button[data-destination-state="finish"]');
+
+    // Selector para el botón Deliver (generalizado)
+    deliverButton = By.css('div.state.row > div > span > button[data-destination-state="deliver"]');
+
+    // Botón de Accept (para aceptar la historia) (generalizado)
+    acceptButton = By.css('button.state.button.accept');
+
+    // Cuadro de advertencia que aparece al intentar aceptar la historia bloqueada
+    warningPopup = By.css('div[data-aid="ConfirmationDialog"]');
+
+    // Botón de "Cancelar" en el cuadro de advertencia (generalizado)
+    cancelButtonInWarning = By.css('button[data-aid="ConfirmationDialog__cancel"]');
+
+    // Botón para añadir un bloqueador (generalizado)
+    addBlockerButton = By.css('section.blockers.full > div > div');
+    
+    // Input para el motivo del bloqueador (generalizado)
+    blockerInputField = By.css('textarea[data-aid="Blocker__textarea"]');
+
+    // Botón para confirmar el bloqueador (generalizado)
+    addBlockerConfirmButton = By.css('button[data-aid="BlockerEdit__addButton"]');
+
+    // Botón para cancelar la adición de otro bloqueador (generalizado)
+    cancelBlockerButton = By.css('button[class*="BlockerEdit__cancel"]');
     
     // Dropdown de puntos al presionar Start
     storyPointsDropdown = By.css('.dropdown_menu.search');

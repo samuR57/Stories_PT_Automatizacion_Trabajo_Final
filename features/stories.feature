@@ -21,3 +21,16 @@ Feature: Story Management in Pivotal Tracker
     Given I have created multiple stories in the backlog
     When I move the first story to the top of the backlog
     Then the story should be moved to the new position
+
+  @US1_FS01_TC4 @login @createFirstProject @deleteFirstProject @functional @regression @PS
+  Scenario: A "Started" story cannot be moved below "Unstarted" stories
+    Given I will create 5 stories for the backlog
+    When I enter a story and press the "Start" button
+    Then I should not be able to move the started story below unstarted stories
+
+  @US1_FS01_TC5 @login @createFirstProject @deleteFirstProject @functional @regression @PS
+  Scenario: Attempt to accept a blocked story shows a warning
+    Given I create a new story with title "Blocked Story" and description "This story has a blocker"
+    When I enter the story and add a blocker
+    And I attempt to accept the blocked story
+    Then I should see a warning message about the unresolved blocker and cancel it
