@@ -34,3 +34,21 @@ Feature: Story Management in Pivotal Tracker
     When I enter the story and add a blocker
     And I attempt to accept the blocked story
     Then I should see a warning message about the unresolved blocker and cancel it
+
+  @US1_FS01_TC6 @login @createFirstProject @deleteFirstProject @functional @regression @PS
+  Scenario: A story remains in My Work after being changed to Unstarted
+    Given I create a specific story with title "My Story Title" and description "My Story Description"
+    When I enter the story and start it
+    Then the story should be moved to My Work
+    When I change the state of the story to "Unstarted"
+    Then the story should remain in My Work
+
+  @US1_FS01_TC7 @login @createFirstProject @deleteFirstProject @functional @regression @PS
+  Scenario: Adjust story points and check recalculated iteration date
+    Given I create and adjust story with title "My Story Title" and description "My Story Description"
+    When I set the story points to 0
+    And I set the iteration length to 1 week
+    And I set the velocity to 1
+    Then I save the current iteration date
+    When I change the story points to 3
+    Then the iteration date should have changed

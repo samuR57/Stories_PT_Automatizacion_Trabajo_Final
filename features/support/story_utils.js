@@ -217,6 +217,148 @@ class StoryUtils {
         const actions = DriverFactory.myDriver.actions({ bridge: true });
         await actions.dragAndDrop(startedStory, unstartedStory).perform();
     }
+
+    // Método para cambiar el estado de una historia a "Unstarted"
+    static async openStoryStateDropdown() {
+        const stateDropdownButton = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesPage.storyStateDropdownButton), 
+            configuration.browser.timeout
+        );
+        await stateDropdownButton.click();
+    }
+
+    // Método para seleccionar la opción "Unstarted" después de haber presionado el botón start
+    static async selectStoryStateUnstartedOption() {
+        const unstartedOption = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesPage.unstartedStoryStateOption), 
+            configuration.browser.timeout
+        );
+        await unstartedOption.click();
+    }
+
+    // Verifica que la historia aún permanezca en "My Work" después del cambio de estado
+    static async verifyStoryRemainsInMyWork() {
+        const myWorkCounter = await DriverFactory.myDriver.findElement(StoriesPage.myWorkCounter);
+        const counterText = await myWorkCounter.getText();
+        const currentCount = parseInt(counterText, 10);
+        expect(currentCount).to.be.above(0);
+    }
+
+    // Esperar hasta que el botón "Collapse" esté visible
+    static async pressCollapseButton() {
+        const collapseButton = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesPage.collapseButton),
+            configuration.browser.timeout
+        );
+        await collapseButton.click();
+    }
+
+    // Método para abrir el dropdown de puntos en la historia
+    static async openStoryPointsDropdown() {
+        const pointsDropdown = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesPage.storyPointsDropdown),
+            configuration.browser.timeout
+        );
+        await pointsDropdown.click();
+    }
+
+    // Método para seleccionar 0 puntos en el dropdown de puntos
+    static async select0Points() {
+        const pointsOption0 = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesPage.pointsOption0),
+            configuration.browser.timeout
+        );
+        await pointsOption0.click();
+    }
+
+    // Método para seleccionar 3 puntos en el dropdown de puntos
+    static async select3Points() {
+        const pointsOption3 = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesPage.pointsOption3),
+            configuration.browser.timeout
+        );
+        await pointsOption3.click();
+    }
+
+    // Método para abrir la configuración de "Iteration length in weeks"
+    static async openIterationLengthConfig() {
+        const iterationLengthLink = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesPage.iterationLengthLink),
+            configuration.browser.timeout
+        );
+        await iterationLengthLink.click();
+    }
+
+    // Método para aplicar la longitud de la iteración
+    static async applyIterationLength(value) {
+        const iterationLengthInput = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesPage.iterationLengthInput),
+            configuration.browser.timeout
+        );
+        await iterationLengthInput.clear();
+        await iterationLengthInput.sendKeys(value);
+        
+        const applyButton = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesPage.applyIterationLengthButton),
+            configuration.browser.timeout
+        );
+        await applyButton.click();
+    }
+
+    // Método para abrir la configuración de velocidad (Velocity)
+    static async openVelocityConfig() {
+        const velocityButton = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesPage.velocityButton),
+            configuration.browser.timeout
+        );
+        await velocityButton.click();
+    }
+
+    // Método para aplicar la velocidad
+    static async applyVelocity(value) {
+        const velocityInput = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesPage.velocityInput),
+            configuration.browser.timeout
+        );
+        await velocityInput.clear();
+        await velocityInput.sendKeys(value);
+        const applyVelocityButton = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesPage.applyVelocityButton),
+            configuration.browser.timeout
+        );
+        await applyVelocityButton.click();
+    }
+
+    // Método para guardar la fecha de la iteración antes de hacer cambios
+    static async saveIterationDate() {
+        const iterationDateElement = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesPage.iterationDateLink),
+            configuration.browser.timeout
+        );
+        const iterationDateText = await iterationDateElement.getText();
+        this.savedIterationDate = iterationDateText;
+    }
+
+    // Verifica la última fecha de entrega en la historia
+    static async saveIterationDateLast() {
+        console.log("Verificando la última fecha de entrega después de asignar puntos...");
+        const iterationDateLink = await DriverFactory.myDriver.findElement(StoriesPage.iterationDateLinkLast);
+        const iterationDateText = await iterationDateLink.getText();
+        return iterationDateText;
+    }
+
+    //Compara las fechas de entrega de las historias cuando se cambia de 0 points a 3 points
+    static async compareIterationDates() {
+        const savedDate = this.savedIterationDate;
+        if (!savedDate) {
+            throw new Error("No se ha guardado ninguna fecha previamente. Verifica que se haya ejecutado el método saveIterationDate.");
+        }
+        const newIterationDate = await this.saveIterationDateLast();
+        if (savedDate === newIterationDate) {
+            throw new Error("Las fechas son iguales, pero deberían ser diferentes.");
+        }
+    }
+
 }
 
 module.exports = StoryUtils;
