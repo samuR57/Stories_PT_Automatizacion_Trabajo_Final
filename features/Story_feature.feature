@@ -57,3 +57,6 @@ Scenario: Verify that a new "Bug" type story is not created with a name that exc
         | StoryType | Feature            |
     Then I should see the the popup window with title: "Validation Error"
 
+@US2-AC04_TC1 @login @createFirstProject @createFeatureStory @deleteFirstProject @functional @regression @PS
+Scenario: Verify that the “Feature” type story is deleted
+    When I delete the feature type story from the backlog
