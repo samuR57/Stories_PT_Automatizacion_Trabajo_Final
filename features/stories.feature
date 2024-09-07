@@ -52,3 +52,24 @@ Feature: Story Management in Pivotal Tracker
     Then I save the current iteration date
     When I change the story points to 3
     Then the iteration date should have changed
+
+  @US1_FS01_TC8 @login @createFirstProject @deleteFirstProject @functional @regression @PS
+  Scenario: Change story state from unstarted to accepted
+    Given I have created multiple stories in the backlog and modify one
+    When I start, finish, deliver, and accept the story
+    Then the accepted story should appear in the accepted stories dropdown
+    Then the number of accepted stories should be 1
+
+  @US1_FS01_TC9 @login @createFirstProject @deleteFirstProject @functional @regression @PS
+  Scenario: Restriction of moving accepted stories
+    Given I have created multiple stories in the backlog for move histories accepted
+    When I start, finish, deliver, accept, and collapse the story
+    Then the accepted story should not be movable within the backlog
+
+  @US1_FS01_TC10 @login @createFirstProject @deleteFirstProject @functional @regression @PS
+  Scenario: Separate and combine Current Iteration and Backlog panels
+    Given the Current Iteration_Backlog panel is active
+    When I split the Current Iteration and Backlog panels
+    Then the Current Iteration and Backlog panels should be separated
+    When I combine the Current Iteration and Backlog panels
+    Then the Current Iteration and Backlog panels should be combined
