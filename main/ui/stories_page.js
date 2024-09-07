@@ -73,10 +73,49 @@ class StoriesPage {
     myWorkCounter = By.css('div.MuiListItemSecondaryAction-root.panel_counter');
 
     // Selector actualizado para las historias en el backlog
-    storyToMove = By.css('span[data-aid="StoryPreviewItem__title"]');  // Seleccionamos los títulos de las historias visibles
+    storyToMove = By.css('span[data-aid="StoryPreviewItem__title"]');
 
     // Posición superior del backlog (para mover la historia)
     backlogTopPosition = By.css('div.tn-panel_loom div[title="Current/backlog"]');
+
+    // Selector para el dropdown de estado de la historia (junto al botón Finish)
+    storyStateDropdownButton = By.css('button[class*="StoryState__dropdownButton"]');
+
+    // Selector para seleccionar la opcion unstarted despues de haber presionado en el boton start
+    unstartedStoryStateOption = By.css('button[data-aid="Unstarted"]');
+
+    // Dropdown de puntos al presionar Start
+    storyPointsDropdown = By.css('a[id^="story_estimate_dropdown"]');
+
+    // Opción de puntos 0
+    pointsOption0 = By.css('li[data-value="0"] a[id^="0_story_estimate_dropdown"]');
+
+    // Opción de puntos 3
+    pointsOption3 = By.css('li[data-value="3"] a[id^="3_story_estimate_dropdown"]');
+
+    // Enlace a la configuración "Iteration length in weeks"
+    iterationLengthLink = By.css('time[class*="IterationMarker__length"]');
+
+    // Input para la longitud de la iteración
+    iterationLengthInput = By.css('input[data-aid="IterationLength__input"]');
+
+    // Botón para aplicar la longitud de la iteración
+    applyIterationLengthButton = By.css('button[data-aid="IterationLength__apply"]');
+
+    // Selector para abrir la configuración de velocidad
+    velocityButton = By.css('button[data-aid="VelocityIndicator"]');
+
+    // Input para la simulación de velocidad
+    velocityInput = By.css('input[id="velocity_overridden_velocity"]');
+
+    // Botón para aplicar la velocidad
+    applyVelocityButton = By.css('button.apply.submit[title="Apply"]');
+
+    // Enlace de la fecha calculada para la entrega
+    iterationDateLink = By.css('time[class*="IterationMarker__length"]');
+
+    // Selector para el enlace de la última fecha calculada para la entrega (última en la lista)
+    iterationDateLinkLast = By.css('header[data-id="3"] time[class*="IterationMarker__length"]');
 }
 
 module.exports = new StoriesPage();
