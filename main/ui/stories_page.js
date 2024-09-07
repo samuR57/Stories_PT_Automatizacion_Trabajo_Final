@@ -17,37 +17,37 @@ class StoriesPage {
     // Botón para guardar la historia
     saveStoryButton = By.css('button[title="Save & collapse"]');
     
-    // Historia en el Backlog (Recientemente creada)
+    // Historia en el Backlog
     backlogStory = By.css('span[data-aid="StoryPreviewItem__title"]');
     
-    // Botón de Start (para intentar iniciar la historia)
+    // Botón de Start
     startStoryButton = By.css('button[data-aid="StateButton"][data-destination-state="start"]');
 
-    // Selector para el botón Finish (generalizado)
+    // Selector para el botón Finish
     finishButton = By.css('div.state.row > div > span > button[data-destination-state="finish"]');
 
-    // Selector para el botón Deliver (generalizado)
+    // Selector para el botón Deliver 
     deliverButton = By.css('div.state.row > div > span > button[data-destination-state="deliver"]');
 
-    // Botón de Accept (para aceptar la historia) (generalizado)
+    // Botón de Accept
     acceptButton = By.css('button.state.button.accept');
 
     // Cuadro de advertencia que aparece al intentar aceptar la historia bloqueada
     warningPopup = By.css('div[data-aid="ConfirmationDialog"]');
 
-    // Botón de "Cancelar" en el cuadro de advertencia (generalizado)
+    // Botón de "Cancelar" en el cuadro de advertencia
     cancelButtonInWarning = By.css('button[data-aid="ConfirmationDialog__cancel"]');
 
-    // Botón para añadir un bloqueador (generalizado)
+    // Botón para añadir un bloqueador
     addBlockerButton = By.css('section.blockers.full > div > div');
     
-    // Input para el motivo del bloqueador (generalizado)
+    // Input para el motivo del bloqueador
     blockerInputField = By.css('textarea[data-aid="Blocker__textarea"]');
 
-    // Botón para confirmar el bloqueador (generalizado)
+    // Botón para confirmar el bloqueador
     addBlockerConfirmButton = By.css('button[data-aid="BlockerEdit__addButton"]');
 
-    // Botón para cancelar la adición de otro bloqueador (generalizado)
+    // Botón para cancelar la adición de otro bloqueador
     cancelBlockerButton = By.css('button[class*="BlockerEdit__cancel"]');
     
     // Dropdown de puntos al presionar Start
@@ -116,6 +116,31 @@ class StoriesPage {
 
     // Selector para el enlace de la última fecha calculada para la entrega (última en la lista)
     iterationDateLinkLast = By.css('header[data-id="3"] time[class*="IterationMarker__length"]');
+
+    // Dropdown para las historias aceptadas (para mostrar/ocultar las historias aceptadas)
+    acceptedStoriesDropdown = By.css('div[class*="accepted_stories_bar"]');
+
+    // Título de la historia aceptada dentro del dropdown
+    acceptedStoryTitle = By.css('span[data-aid="StoryPreviewItem__title"]');
+
+    // Verificar la cantidad de historias aceptadas en el dropdown
+    acceptedStoryCountLabel = By.css('label[class="hide"], label[class="show"]');
+
+    // Botón de opciones (tres puntos) en el panel Current Iteration/Backlog
+    optionsButton = By.css('button.MuiIconButton-root[title="Actions"]');
+
+    // Opción para dividir Current Iteration y Backlog
+    splitOption = By.css('li[data-aid="Split Current & Backlog"]');
+
+    // Opción para combinar Current Iteration y Backlog
+    combineOption = By.css('li[data-aid="Combine Current & Backlog"]');
+
+    // Verificación de que el panel Current Iteration se ha separado
+    currentIterationPanel = By.css('div[data-type="current"]');
+
+    //Verificación de que el panel Backlog se ha separado
+    backlogPanel = By.css('div[data-type="backlog"]');
+
 }
 
 module.exports = new StoriesPage();

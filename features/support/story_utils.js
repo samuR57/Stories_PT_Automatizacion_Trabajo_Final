@@ -359,6 +359,104 @@ class StoryUtils {
         }
     }
 
+    // Verifica que la historia aceptada aparece en el dropdown de historias aceptadas
+    static async verifyStoryInAcceptedDropdown() {
+        const acceptedStoriesDropdown = await DriverFactory.myDriver.findElement(StoriesPage.acceptedStoriesDropdown);
+        await acceptedStoriesDropdown.click();
+        const acceptedStoryTitle = await DriverFactory.myDriver.findElement(StoriesPage.acceptedStoryTitle);
+        const storyTitle = await acceptedStoryTitle.getText();
+        return storyTitle;
+    }
+
+    // Verifica el número de historias aceptadas en el dropdown
+    static async verifyAcceptedStoryCount(expectedCount) {
+        const acceptedStoryCountLabel = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesPage.acceptedStoryCountLabel), 
+            configuration.browser.timeout
+        );
+        const acceptedStoryCountText = await acceptedStoryCountLabel.getText();
+        const acceptedCount = parseInt(acceptedStoryCountText.match(/\d+/)[0], 10);
+        expect(acceptedCount).to.equal(expectedCount);
+    }
+
+    // Método para colapsar o expandir el dropdown de historias aceptadas
+    static async toggleAcceptedStoriesDropdown() {
+        const acceptedStoriesDropdown = await DriverFactory.myDriver.findElement(StoriesPage.acceptedStoriesDropdown);
+        await acceptedStoriesDropdown.click();
+    }
+
+    // Verifica que una historia aceptada no se puede mover
+    static async verifyStoryCannotBeMoved() {
+        const acceptedStory = await DriverFactory.myDriver.findElement(StoriesPage.acceptedStoryTitle);
+        const backlogStory = await DriverFactory.myDriver.findElement(StoriesPage.backlogStory);
+        const actions = DriverFactory.myDriver.actions({bridge: true});
+        try {
+            await actions.dragAndDrop(acceptedStory, backlogStory).perform();
+            throw new Error("La historia aceptada se movió, pero no debería ser posible.");
+        } catch (error) {
+        }
+    }
+
+    // Verifica si el panel Current Iteration/Backlog está activo
+    static async verifyCurrentBacklogTabActive() {
+        const currentBacklogTabActive = await DriverFactory.myDriver.findElements(StoriesPage.currentBacklogTabActive);
+        if (currentBacklogTabActive.length === 0) {
+            throw new Error("El panel Current/Backlog no está activo.");
+        }
+    }
+
+    // Activa el panel Current Iteration/Backlog si no está activo
+    static async activateCurrentBacklogTab() {
+        const currentBacklogTabInactive = await DriverFactory.myDriver.findElements(StoriesPage.currentBacklogTabInactive);
+        if (currentBacklogTabInactive.length > 0) {
+            await currentBacklogTabInactive[0].click();
+        }
+    }
+
+    // Presiona el botón de opciones (tres puntos) en el panel Current Iteration/Backlog
+    static async openCurrentBacklogOptions() {
+        const optionsButton = await DriverFactory.myDriver.wait(until.elementLocated(StoriesPage.optionsButton), 10000);
+        await optionsButton.click();
+    }
+
+    // Selecciona la opción de dividir Current Iteration y Backlog
+    static async splitCurrentAndBacklog() {
+        await this.openCurrentBacklogOptions();
+        const splitOption = await DriverFactory.myDriver.wait(until.elementLocated(StoriesPage.splitOption), 10000);
+        await splitOption.click();
+    }
+
+    // Verifica que los paneles Current Iteration y Backlog se han separado
+    static async verifyPanelsSeparated() {
+        const currentIterationPanel = await DriverFactory.myDriver.findElements(StoriesPage.currentIterationPanel);
+        const backlogPanel = await DriverFactory.myDriver.findElements(StoriesPage.backlogPanel);
+        if (currentIterationPanel.length === 0 || backlogPanel.length === 0) {
+            throw new Error("Los paneles Current Iteration y Backlog no se han separado.");
+        }
+    }
+
+    // Presiona el botón de opciones (tres puntos) en el panel de Backlog
+    static async openBacklogOptions() {
+        const optionsButton = await DriverFactory.myDriver.wait(until.elementLocated(StoriesPage.optionsButton), 10000);
+        await optionsButton.click();
+    }
+
+    // Selecciona la opción de combinar Current Iteration y Backlog
+    static async combineCurrentAndBacklog() {
+        await this.openBacklogOptions();
+        const combineOption = await DriverFactory.myDriver.wait(until.elementLocated(StoriesPage.combineOption), 10000);
+        await combineOption.click();
+    }
+
+    /// Verifica que los paneles Current Iteration y Backlog se han combinado
+    static async verifyPanelsCombined() {
+        const currentBacklogTabActive = await DriverFactory.myDriver.findElements(StoriesPage.currentBacklogTabActive);
+        if (currentBacklogTabActive.length === 0) {
+            throw new Error("Los paneles Current Iteration y Backlog no se han combinado correctamente.");
+        } else {
+        }
+    }
+
 }
 
 module.exports = StoryUtils;
