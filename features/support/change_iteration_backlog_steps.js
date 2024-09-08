@@ -1,31 +1,33 @@
 const { Given, When, Then } = require('@cucumber/cucumber');
-const StoryUtils = require('./story_utils');
+const StoryButtonsUtils = require('./story_buttons_utils');
+const StoryVerificationUtils = require('./story_verification_utils');
+const StoryMovementUtils = require('./story_movement_utils');
 
 Given('the Current Iteration_Backlog panel is active', async function () {
     console.log('the Current Iteration_Backlog panel is active');
     try {
-        await StoryUtils.verifyCurrentBacklogTabActive();
-    } catch (error) {;
-        await StoryUtils.activateCurrentBacklogTab();
+        await StoryVerificationUtils.verifyCurrentBacklogTabActive();
+    } catch (error) {
+        await StoryButtonsUtils.activateCurrentBacklogTab();
     }
 });
 
 When('I split the Current Iteration and Backlog panels', async function () {
     console.log('I split the Current Iteration and Backlog panels');
-    await StoryUtils.splitCurrentAndBacklog();
+    await StoryButtonsUtils.splitCurrentAndBacklog();
 });
 
 Then('the Current Iteration and Backlog panels should be separated', async function () {
     console.log('the Current Iteration and Backlog panels should be separated');
-    await StoryUtils.verifyPanelsSeparated();
+    await StoryVerificationUtils.verifyPanelsSeparated();
 });
 
 When('I combine the Current Iteration and Backlog panels', async function () {
     console.log('I combine the Current Iteration and Backlog panels');
-    await StoryUtils.combineCurrentAndBacklog();
+    await StoryButtonsUtils.combineCurrentAndBacklog();
 });
 
 Then('the Current Iteration and Backlog panels should be combined', async function () {
     console.log('the Current Iteration and Backlog panels should be combined');
-    await StoryUtils.verifyPanelsCombined();
+    await StoryVerificationUtils.verifyPanelsCombined();
 });
