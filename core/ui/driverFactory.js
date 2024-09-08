@@ -17,15 +17,7 @@ module.exports = class DriverFactory {
                 DriverFactory.myDriver = await new browserStrategy[
                     configuration.browser.name.toLowerCase()
                 ](configuration);
-                /*if(configuration.browser.maxWindows){
-                    console.log("Maximizing windows");
-                    await DriverFactory.myDriver.manage().window().maximize();
-                }*/
                 if (configuration.browser.timeout) {
-                    /*console.log("Setting timeout", configuration.browser.timeout);
-                    await DriverFactory.myDriver
-                    .manage()
-                    .timeouts( {implicit: configuration.browser.timeout} );*/
                 }    
             } else {
                 console.log("Driver already exists");

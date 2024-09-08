@@ -1,7 +1,6 @@
 const { When, Then } = require("@cucumber/cucumber");
 const DriverFactory = require("../../core/ui/driverFactory");
 const StoriesTab = require("../../main/ui/stories_tab");
-const IntroductionPage = require("../../main/ui/introduction_page");
 const DashboardPage = require("../../main/ui/dashboard_page");
 const RandomValues = require("../../features/support/random_values");
 const { until } = require("selenium-webdriver");

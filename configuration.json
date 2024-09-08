@@ -8,15 +8,5 @@
             "width": 1280,
             "heigth": 720
         }
-    },
-    "remoteBrowser":{
-        "userKey":"<enter valid value>",
-        "passwordKey": "<enter valid value>",
-        "os": "Windows",
-        "osVersion": "10",
-        "browserName": "chrome",
-        "browserVersion": "latest",
-        "local": "false",
-        "seleniumVersion": "4.0.0"
     }
 }

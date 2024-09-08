@@ -1,10 +1,13 @@
 const DriverFactory = require("../../core/ui/driverFactory");
+const StoriesTab = require("../../main/ui/stories_tab");
+const StoryPanel = require("../../main/ui/story_panel");
 const StoriesPage = require("../../main/ui/stories_page");
 const { until, Key } = require("selenium-webdriver");
 const chai = require("chai");
 const expect = chai.expect;
 const configuration = require("../../configuration.json");
-const RandomValues = require("./random_values");
+const RandomValues = require("../../features/support/random_values");
+const environment = require("../../environment.json");
 
 class StoryUtils {
 
@@ -455,6 +458,104 @@ class StoryUtils {
             throw new Error("Los paneles Current Iteration y Backlog no se han combinado correctamente.");
         } else {
         }
+    }
+
+    // Crear una nueva historia en el panel de backlog con la información proporcionada
+    static async createNewStory(dataTable) {
+        const addStoryButton = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.addStoryButton));
+        await DriverFactory.myDriver.wait(until.elementIsVisible(addStoryButton), configuration.browser.timeout);
+        await addStoryButton.click();
+
+        const storyTitleTextField = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.storyTitleTextField));
+        const storyTypeDropdown = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.storyTypeDropdown));
+        const ownerPlusIcon = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.ownerPlusIcon));
+
+        const projectName = RandomValues.getRandomValues(dataTable.rowsHash().Title);
+        await storyTitleTextField.sendKeys(projectName);
+        await storyTypeDropdown.click();
+
+        StoryPanel.locatorAux.value = StoryPanel.storyOptionInDropdown.value.replace("{0}", dataTable.rowsHash().StoryType.toLowerCase());
+        const optionSelectedInDropdown = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.locatorAux));
+        await optionSelectedInDropdown.click();
+
+        if (dataTable.rowsHash().Owners !== undefined) {
+            await ownerPlusIcon.click();
+            const ownerList = await DriverFactory.myDriver.wait(until.elementsLocated(StoryPanel.ownerSelect));
+            for (let i = 0; i < ownerList.length; i++) {
+                const element = ownerList.pop();
+                if ((await element.getText()).toString() === environment.prod.userMember01.name)
+                    await element.click();
+            }
+        }
+
+        const saveButton = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.saveButton));
+        await saveButton.sendKeys(Key.SHIFT);
+        await saveButton.click();
+        await DriverFactory.myDriver.wait(until.elementIsVisible(addStoryButton), configuration.browser.timeout);
+
+        return projectName;  // Devuelve el nombre de la historia creada
+    }
+
+    // Verificar que una historia esté en el panel de backlog
+    static async verifyStoryInBacklog(storyName) {
+        let storyItem = await DriverFactory.myDriver.findElement(StoriesTab.previewStoryItemRow);
+        storyItem = await DriverFactory.myDriver.wait(until.elementTextContains(storyItem, storyName));
+        expect(storyItem).to.not.equal(undefined);
+    }
+
+    // Verificar que una historia en el backlog tiene la información especificada
+    static async verifyStoryInformationInBacklog(storyName, dataTable) {
+        let storyItem = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.previewStoryItemRow));
+        storyItem = await DriverFactory.myDriver.wait(until.elementTextContains(storyItem, storyName));
+        await (storyItem).click();
+
+        const storyTitleTextField = await DriverFactory.myDriver.findElement(StoryPanel.storyTitleTextField);
+        StoryPanel.locatorAux.value = StoryPanel.storyTypeSelectedLabel.value.replace("{0}", dataTable.rowsHash().StoryType.toLowerCase());
+        const storyTypeSelected = await DriverFactory.myDriver.findElement(StoryPanel.locatorAux);
+
+        let ownerNameSelected = undefined;
+        if (dataTable.rowsHash().Owners !== undefined)
+            ownerNameSelected = await DriverFactory.myDriver.findElement(StoryPanel.ownerNameSelectedLabel);
+
+        expect((await storyTitleTextField.getText()).toString()).to.equal(storyName);
+        expect((await storyTypeSelected.getText()).toString()).to.equal(dataTable.rowsHash().StoryType);
+
+        if (dataTable.rowsHash().Owners !== undefined) {
+            expect((await ownerNameSelected.getText()).toString()).to.equal(environment.prod.userMember01.name);
+        }
+    }
+
+    // Verifica que la ventana emergente tiene el título esperado
+    static async verifyPopupWindowTitle(expectedTitle) {
+        let titleLabel = await DriverFactory.myDriver.findElement(StoriesTab.titleAlertDialogLabel);
+        titleLabel = await DriverFactory.myDriver.wait(until.elementTextContains(titleLabel, expectedTitle));
+        expect(titleLabel).to.not.equal(undefined);
+    }
+
+    // Método para eliminar una historia de tipo 'feature'
+    static async deleteFeatureStory() {
+        const deleteStoryButton = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.deleteStoryButton), configuration.browser.timeout);
+        await deleteStoryButton.click();
+        
+        const confirmDeleteButton = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.confirmDeleteButton), configuration.browser.timeout);
+        await DriverFactory.myDriver.wait(until.elementIsVisible(confirmDeleteButton), configuration.browser.timeout);
+        await confirmDeleteButton.click();
+    }
+
+    // Método para eliminar una historia de tipo 'bug'
+    static async deleteBugStory() {
+        const deleteStoryButton = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.deleteStoryButton), configuration.browser.timeout);
+        await deleteStoryButton.click();
+        
+        const confirmDeleteButton = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.confirmDeleteButton), configuration.browser.timeout);
+        await DriverFactory.myDriver.wait(until.elementIsVisible(confirmDeleteButton), configuration.browser.timeout);
+        await confirmDeleteButton.click();
+    }
+
+    // Método para verificar si el backlog está vacío
+    static async isBacklogEmpty() {
+        const emptyMessageText = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.emptyMessageText), configuration.browser.timeout);
+        return await emptyMessageText.isDisplayed();
     }
 
 }
