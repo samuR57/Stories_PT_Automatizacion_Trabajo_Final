@@ -532,6 +532,32 @@ class StoryUtils {
         expect(titleLabel).to.not.equal(undefined);
     }
 
+    // Método para eliminar una historia de tipo 'feature'
+    static async deleteFeatureStory() {
+        const deleteStoryButton = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.deleteStoryButton), configuration.browser.timeout);
+        await deleteStoryButton.click();
+        
+        const confirmDeleteButton = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.confirmDeleteButton), configuration.browser.timeout);
+        await DriverFactory.myDriver.wait(until.elementIsVisible(confirmDeleteButton), configuration.browser.timeout);
+        await confirmDeleteButton.click();
+    }
+
+    // Método para eliminar una historia de tipo 'bug'
+    static async deleteBugStory() {
+        const deleteStoryButton = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.deleteStoryButton), configuration.browser.timeout);
+        await deleteStoryButton.click();
+        
+        const confirmDeleteButton = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.confirmDeleteButton), configuration.browser.timeout);
+        await DriverFactory.myDriver.wait(until.elementIsVisible(confirmDeleteButton), configuration.browser.timeout);
+        await confirmDeleteButton.click();
+    }
+
+    // Método para verificar si el backlog está vacío
+    static async isBacklogEmpty() {
+        const emptyMessageText = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.emptyMessageText), configuration.browser.timeout);
+        return await emptyMessageText.isDisplayed();
+    }
+
 }
 
 module.exports = StoryUtils;
