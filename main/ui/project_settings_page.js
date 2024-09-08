@@ -1,17 +1,17 @@
 const { By } = require("selenium-webdriver");
 
 class ProjectSettingsPage{
+    // Enlace que permite eliminar un proyecto
     deleteLink = By.css('a#delete_link');
+
+    // Botón para confirmar la eliminación del proyecto
     deleteButton = By.css('#confirm_delete');
-    archiveLink = By.css('a#archive_link');
-    confirmArchiveButton = By.css('input#confirm_archive');
-    archivedProjectsWarning = By.css('#notice');
-    projectTitleInput = By.css('input#project_name');
-    projectDescriptionInput = By.css('input#project_description');
-    enableTasksCheckbox = By.css('input#project_enable_tasks');
+
+    // Botón para guardar los cambios en la configuración del proyecto
     saveButton = By.css('input.save_bar__submit');
+
+    // Etiqueta que muestra el nombre actual del proyecto
     projectNameLabel = By.css('button .tc_header_project_name');
-    errorProjectTitleLabel = By.css('.form_table .error_above_or_below');
 }
 
 module.exports = new ProjectSettingsPage();
