@@ -16,6 +16,7 @@ Then('the story should appear in the backlog', async function () {
 
 Then('I should not be able to press the "Start" button for the story', async function () {
     console.log('I should not be able to press the "Start" button for the story');
+    await StoryUtils.enterStory();
     await StoryUtils.pressStartButton();
     await StoryUtils.selectUnestimatedOption();
 });

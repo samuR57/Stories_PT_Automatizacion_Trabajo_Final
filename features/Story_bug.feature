@@ -7,9 +7,9 @@ Scenario: Verify that a new "Bug" type story is created with the minimum require
         | Title     | <RandomValue,9> |
         | StoryType | Bug             |
     Then I should see the story with name: "<RandomValue,9>" in backlog panel
-        And  I should see the story in backlog panel with following information:
-            | Title     | <RandomValue,9> |
-            | StoryType | Bug             |
+    And I should see the story in backlog panel with following information:
+        | Title     | <RandomValue,9> |
+        | StoryType | Bug             |
 
 @US3-AC06_TC1 @login @createFirstProject @addAMemberToProject @deleteFirstProject @functional @regression @PS
 Scenario: Verify that a new "Bug" type story is created with an "Owner"
@@ -18,10 +18,10 @@ Scenario: Verify that a new "Bug" type story is created with an "Owner"
         | StoryType | Bug             |
         | Owners    | userMember01    |
     Then I should see the story with name: "<RandomValue,9>" in backlog panel
-        And  I should see the story in backlog panel with following information:
-            | Title     | <RandomValue,9> |
-            | StoryType | Bug             |
-            | Owners    | userMember01    |
+    And I should see the story in backlog panel with following information:
+        | Title     | <RandomValue,9> |
+        | StoryType | Bug             |
+        | Owners    | userMember01    |
 
 @US3-AC07_TC1 @login @createFirstProject @createBugStory @deleteFirstProject @functional @regression @PS
 Scenario: Verify that a "Bug" type story can be deleted
@@ -34,22 +34,22 @@ Scenario: Verify that a new "Bug" type story is created with a name of minimum s
         | Title     | <RandomValue,1> |
         | StoryType | Bug             |
     Then I should see the story with name: "<RandomValue,1>" in backlog panel
-        And  I should see the story in backlog panel with following information:
-            | Title     | <RandomValue,1> |
-            | StoryType | Bug             |
+    And I should see the story in backlog panel with following information:
+        | Title     | <RandomValue,1> |
+        | StoryType | Bug             |
 
 @US3-AC05_TC3 @login @createFirstProject @deleteFirstProject @regression @SS
-Scenario: Verify that a new "Bug" type story is created with a name of maximun size allowed
+Scenario: Verify that a new "Bug" type story is created with a name of maximum size allowed
     When I create a new story in backlog panel with following information:
         | Title     | <RandomValue,5000> |
         | StoryType | Bug                |
     Then I should see the story with name: "<RandomValue,5000>" in backlog panel
-        And  I should see the story in backlog panel with following information:
-            | Title     | <RandomValue,5000> |
-            | StoryType | Bug                | 
+    And I should see the story in backlog panel with following information:
+        | Title     | <RandomValue,5000> |
+        | StoryType | Bug                | 
 
 @US3-AC05_TC4 @login @createFirstProject @deleteFirstProject @regression @SS
-Scenario: Verify that a new "Bug" type story is not created with a empty name
+Scenario: Verify that a new "Bug" type story is not created with an empty name
     When I create a new story in backlog panel with following information:
         | Title     |     |
         | StoryType | Bug |

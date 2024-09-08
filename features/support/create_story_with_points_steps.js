@@ -16,6 +16,7 @@ Then('the story with points should appear in the backlog', async function () {
 
 Then('I should be able to press the "Start" button for the story', async function () {
     console.log("Pressing Start button for the story with points");
+    await StoryUtils.enterStory();
     await StoryUtils.pressStartButton();
     await StoryUtils.selectRandomPoints();
     await StoryUtils.pressStartButton();
