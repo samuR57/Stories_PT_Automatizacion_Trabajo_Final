@@ -1,7 +1,6 @@
 const DriverFactory = require('../../core/ui/driverFactory');
 const ProjectPanel = require('../../main/ui/project_panel');
 const { until } = require('selenium-webdriver');
-const configuration = require('../../configuration.json');
 
 class ProjectManagementPanel {
 
@@ -137,6 +136,34 @@ class ProjectManagementPanel {
         const randomIndex = Math.floor(Math.random() * panels.length);
         const randomPanel = panels[randomIndex];
         await this.openOnlyOnePanel(randomPanel);
+    }
+
+    // Método para abrir el panel "Current/Backlog" solo si no está ya abierto
+    static async openBacklogPanelIfNotOpen() {
+        const isBacklogOpen = await this.isCurrentBacklogPanelOpen();   
+        if (!isBacklogOpen) {
+            await this.openOnlyOnePanel(ProjectPanel.currentBacklogPanel);
+        }
+    }
+
+    // Método para cerrar todos los paneles excepto el "Current/Backlog"
+    static async closeAllPanelsExceptBacklog() {
+        const panelsToClose = [
+            ProjectPanel.myWorkPanel,
+            ProjectPanel.iceboxPanel,
+            ProjectPanel.donePanel,
+            ProjectPanel.blockedPanel,
+            ProjectPanel.epicsPanel,
+            ProjectPanel.labelsPanel,
+            ProjectPanel.projectHistoryPanel
+        ];
+        for (const panel of panelsToClose) {
+            await this.closePanel(panel);
+        }
+        const isBacklogOpen = await this.isCurrentBacklogPanelOpen();       
+        if (!isBacklogOpen) {
+            await this.openOnlyOnePanel(ProjectPanel.currentBacklogPanel);
+        }
     }
 
 }

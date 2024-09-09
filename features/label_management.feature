@@ -22,3 +22,11 @@ Scenario: Rename a created label in the label panel
     When I create a label to rename
     When I rename label
     Then the label should be renamed and visible in the label panel
+
+@US1_FS03_TC04 @login @createFirstProject @deleteFirstProject @functional @regression @PS
+Scenario: Assign a created label to a user story in the backlog
+    Given I create a label for assigned
+    When I create a user story in the backlog with title "Historia de Prueba" and description "Descripción de prueba para la historia" for assigned label
+    When I open the labels dropdown in the user story
+    When I select the created label from the dropdown
+    Then the label should be assigned to the user story
