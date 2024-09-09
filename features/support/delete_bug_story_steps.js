@@ -1,6 +1,6 @@
 const { When, Then } = require("@cucumber/cucumber");
-const StoryButtonsUtils = require("./story_buttons_utils");  
-const StoryVerificationUtils = require("./story_verification_utils");  
+const StoryButtonsUtils = require("./utils_backlog_story_buttons");  
+const StoryVerificationUtils = require("./utils_backlog_story_verification");  
 const chai = require('chai');
 const expect = chai.expect;
 

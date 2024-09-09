@@ -141,6 +141,14 @@ class StoriesPage {
     //Verificación de que el panel Backlog se ha separado
     backlogPanel = By.css('div[data-type="backlog"]');
 
+    // Botón para habilitar el campo de texto y añadir una nueva tarea en una historia
+    addTaskButton = By.css('div[data-aid="TaskAdd"]');
+
+    // Checkbox para marcar las tareas como completas
+    taskCompleteCheckbox = By.css('input[data-aid="toggle-complete"]');
+
+    // Lista de tareas dentro de una historia (cada tarea individual)
+    taskList = By.css('div[data-aid="TaskShow"]');
 }
 
 module.exports = new StoriesPage();

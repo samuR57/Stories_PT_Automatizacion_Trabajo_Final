@@ -1,8 +1,9 @@
 const DriverFactory = require("../../core/ui/driverFactory");
 const StoriesTab = require("../../main/ui/stories_tab");
 const StoriesPage = require("../../main/ui/stories_page");
+const StoriesPanel = require("../../main/ui/story_panel");
 const { until } = require("selenium-webdriver");
-const RandomValues = require("../../features/support/random_values");
+const RandomValues = require("./random_values");
 const configuration = require("../../configuration.json");
 
 class StoryButtonsUtils {
@@ -150,6 +151,54 @@ class StoryButtonsUtils {
         const confirmDeleteButton = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.confirmDeleteButton), configuration.browser.timeout);
         await DriverFactory.myDriver.wait(until.elementIsVisible(confirmDeleteButton), configuration.browser.timeout);
         await confirmDeleteButton.click();
+    }
+
+    //Método para habilitar el cuadro de texto de la tarea
+    static async enableTaskInputField() {
+        const addTaskButton = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesPage.addTaskButton),
+            configuration.browser.timeout
+        );
+        await addTaskButton.click();
+    }
+
+    //Método para añadir el texto en el campo de tarea
+    static async addTaskText(taskDescription) {
+        const randomTaskDescription = RandomValues.getRandomValues(taskDescription);
+        const taskInputField = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesPanel.addTaskTextField),
+            configuration.browser.timeout
+        );
+        await taskInputField.sendKeys(randomTaskDescription);
+    }
+    
+    //Método para confirmar la adición de la tarea
+    static async confirmAddTask() {
+        const addTaskSubmitButton = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesPanel.confirmAddTaskButton),
+            configuration.browser.timeout
+        );
+        await addTaskSubmitButton.click();
+    }    
+
+    // Método para añadir un número aleatorio de tareas a la historia (entre 0 y 5)
+    static async addRandomTasksToStory() {
+        const randomTaskCount = Math.floor(Math.random() * 6); 
+        for (let i = 0; i < randomTaskCount; i++) {
+            await this.addTaskText("<TaskDescription,6>");
+            await this.confirmAddTask();
+        }
+    }
+
+    // Método para marcar todas las tareas como completas
+    static async markTaskAsComplete() {
+        const taskCheckboxes = await DriverFactory.myDriver.findElements(StoriesPage.taskCompleteCheckbox);
+        
+        for (let checkbox of taskCheckboxes) {
+            if (!(await checkbox.isSelected())) {
+                await checkbox.click();
+            }
+        }
     }
 
 }

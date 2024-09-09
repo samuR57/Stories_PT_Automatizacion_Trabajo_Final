@@ -1,6 +1,6 @@
 const { When, Then } = require("@cucumber/cucumber");
-const StoryCreationUtils = require('./story_creation_utils');
-const StoryVerificationUtils = require('./story_verification_utils');
+const StoryCreationUtils = require('./utils_backlog_story_creation');
+const StoryVerificationUtils = require('./utils_backlog_story_verification');
 
 When('I create a new story in backlog panel with following information:', async function(dataTable) {
     console.log("I create a new story in backlog panel with following information:");
