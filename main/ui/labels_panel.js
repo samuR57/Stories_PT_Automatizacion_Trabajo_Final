@@ -15,6 +15,15 @@ class LabelsPanel {
 
     // Selector para el nombre de la etiqueta
     labelName = By.css('div[data-aid="badge"] + div');
+
+    //Selector para el dropdown que despliega opciones de la etiqueta
+    labelDropdown = By.css('div[data-aid="DropdownButton"]');
+
+    //Selector para la opción "Delete" dentro del dropdown
+    deleteLabelOption = By.css('li[data-aid="Delete"]');
+
+    //Selector para el botón "Delete" en el cuadro de diálogo de confirmación
+    confirmDeleteButton = By.css('button[data-aid="ConfirmationDialog__confirm"]');
 }
 
 module.exports = new LabelsPanel();
