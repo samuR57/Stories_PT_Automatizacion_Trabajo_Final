@@ -1,7 +1,7 @@
 const { Given, When, Then } = require('@cucumber/cucumber');
-const StoryButtonsUtils = require('./story_buttons_utils');
-const StoryVerificationUtils = require('./story_verification_utils');
-const StoryMovementUtils = require('./story_movement_utils');
+const StoryButtonsUtils = require('./utils_backlog_story_buttons');
+const StoryVerificationUtils = require('./utils_backlog_story_verification');
+const StoryMovementUtils = require('./utils_backlog_story_movement');
 
 Given('the Current Iteration_Backlog panel is active', async function () {
     console.log('the Current Iteration_Backlog panel is active');

@@ -1,8 +1,8 @@
 const { Given, When, Then } = require('@cucumber/cucumber');
-const StoryCreationUtils = require('./story_creation_utils');
-const StoryButtonsUtils = require('./story_buttons_utils');
-const StoryPointsUtils = require('./story_points_utils');
-const StoryVerificationUtils = require('./story_verification_utils');
+const StoryCreationUtils = require('./utils_backlog_story_creation');
+const StoryButtonsUtils = require('./utils_backlog_story_buttons');
+const StoryPointsUtils = require('./utils_backlog_story_points');
+const StoryVerificationUtils = require('./utils_backlog_story_verification');
 
 Given('I create a new story with title {string} and description {string}', async function (title, description) {
     console.log(`Created a story with title "${title}" and description "${description}"`);

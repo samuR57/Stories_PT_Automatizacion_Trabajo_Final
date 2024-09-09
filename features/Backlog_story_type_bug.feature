@@ -1,7 +1,7 @@
 @ui
 Feature: Management of Story Type - Bug
 
-@US3-AC05_TC1 @login @createFirstProject @deleteFirstProject @functional @regression @PS
+@US1_FS02_TC8 @login @createFirstProject @deleteFirstProject @functional @regression @PS
 Scenario: Verify that a new "Bug" type story is created with the minimum requirements
     When I create a new story in backlog panel with following information:
         | Title     | <RandomValue,9> |
@@ -11,7 +11,7 @@ Scenario: Verify that a new "Bug" type story is created with the minimum require
         | Title     | <RandomValue,9> |
         | StoryType | Bug             |
 
-@US3-AC06_TC1 @login @createFirstProject @addAMemberToProject @deleteFirstProject @functional @regression @PS
+@US1_FS02_TC9 @login @createFirstProject @addAMemberToProject @deleteFirstProject @functional @regression @PS
 Scenario: Verify that a new "Bug" type story is created with an "Owner"
     When I create a new story in backlog panel with following information:
         | Title     | <RandomValue,9> |
@@ -23,12 +23,12 @@ Scenario: Verify that a new "Bug" type story is created with an "Owner"
         | StoryType | Bug             |
         | Owners    | userMember01    |
 
-@US3-AC07_TC1 @login @createFirstProject @createBugStory @deleteFirstProject @functional @regression @PS
+@US1_FS02_TC10 @login @createFirstProject @createBugStory @deleteFirstProject @functional @regression @PS
 Scenario: Verify that a "Bug" type story can be deleted
     When I delete the bug type story from the backlog
     Then I should see the backlog empty     
 
-@US3-AC05_TC2 @login @createFirstProject @deleteFirstProject @regression @SS
+@US1_FS02_TC11 @login @createFirstProject @deleteFirstProject @regression @SS
 Scenario: Verify that a new "Bug" type story is created with a name of minimum size allowed
     When I create a new story in backlog panel with following information:
         | Title     | <RandomValue,1> |
@@ -38,7 +38,7 @@ Scenario: Verify that a new "Bug" type story is created with a name of minimum s
         | Title     | <RandomValue,1> |
         | StoryType | Bug             |
 
-@US3-AC05_TC3 @login @createFirstProject @deleteFirstProject @regression @SS
+@US1_FS02_TC12 @login @createFirstProject @deleteFirstProject @regression @SS
 Scenario: Verify that a new "Bug" type story is created with a name of maximum size allowed
     When I create a new story in backlog panel with following information:
         | Title     | <RandomValue,5000> |
@@ -48,14 +48,14 @@ Scenario: Verify that a new "Bug" type story is created with a name of maximum s
         | Title     | <RandomValue,5000> |
         | StoryType | Bug                | 
 
-@US3-AC05_TC4 @login @createFirstProject @deleteFirstProject @regression @SS
+@US1_FS02_TC13 @login @createFirstProject @deleteFirstProject @regression @SS
 Scenario: Verify that a new "Bug" type story is not created with an empty name
     When I create a new story in backlog panel with following information:
         | Title     |     |
         | StoryType | Bug |
     Then I should see the the popup window with title: "Validation Error"
 
-@US3-AC05_TC5 @login @createFirstProject @deleteFirstProject @regression @SS
+@US1_FS02_TC14 @login @createFirstProject @deleteFirstProject @regression @SS
 Scenario: Verify that a new "Bug" type story is not created with a name that exceeds the maximum size allowed
     When I create a new story in backlog panel with following information:
         | Title     | <RandomValue,5001> |

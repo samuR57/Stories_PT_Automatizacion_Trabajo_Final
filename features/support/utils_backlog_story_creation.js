@@ -4,7 +4,7 @@ const StoryPanel = require("../../main/ui/story_panel");
 const StoriesPage = require("../../main/ui/stories_page");
 const { until, Key } = require("selenium-webdriver");
 const configuration = require("../../configuration.json");
-const RandomValues = require("../../features/support/random_values");
+const RandomValues = require("./random_values");
 const environment = require("../../environment.json");
 
 class StoryCreationUtils {

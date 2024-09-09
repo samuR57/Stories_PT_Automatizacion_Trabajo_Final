@@ -27,6 +27,12 @@ class StoryPanel{
 
     // Selector auxiliar que se puede utilizar
     locatorAux = By.css('');
+
+    // Campo de texto para añadir una nueva tarea dentro de una historia
+    addTaskTextField = By.css('textarea[data-aid="new"][data-focus-id^="TaskEdit--new"]');
+
+    // Botón para confirmar la adición de la tarea
+    confirmAddTaskButton = By.css('button[data-aid="addTaskButton"]');
 }
 
 module.exports = new StoryPanel();
