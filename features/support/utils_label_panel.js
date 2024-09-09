@@ -112,6 +112,45 @@ class LabelPanelUtils {
         expect(labelFound).to.be.false;
     }
 
+    // Método para seleccionar la opción "Rename" en el dropdown
+    static async selectRenameOption() {
+        const renameOption = await DriverFactory.myDriver.wait(
+            until.elementLocated(LabelsPanel.renameLabelOption),
+            configuration.browser.timeout
+        );
+        await renameOption.click();
+    }
+
+    // Método para ingresar un nuevo nombre aleatorio para la etiqueta
+    static async enterNewRandomLabelName() {
+        const renameInput = await DriverFactory.myDriver.wait(
+            until.elementLocated(LabelsPanel.renameLabelInput),
+            configuration.browser.timeout
+        );
+        const newRandomLabelName = RandomValues.getRandomValues('<NewLabelName, 8>');
+        await renameInput.clear();
+        await renameInput.sendKeys(newRandomLabelName);
+        this.generatedLabelName = newRandomLabelName;
+    }
+
+    // Método para confirmar el renombrado de la etiqueta
+    static async clickApplyRenameButton() {
+        const applyButton = await DriverFactory.myDriver.wait(
+            until.elementLocated(LabelsPanel.applyRenameButton),
+            configuration.browser.timeout
+        );
+        await applyButton.click();
+    }
+
+    // Método para verificar que la etiqueta fue renombrada
+    static async verifyLabelRenamed() {
+        const renamedLabel = await DriverFactory.myDriver.wait(
+            until.elementLocated(LabelsPanel.labelName),
+            configuration.browser.timeout
+        );
+        const labelText = await renamedLabel.getText();
+        expect(labelText.toLowerCase()).to.equal(this.generatedLabelName.toLowerCase());
+    }
 }
 
 module.exports = LabelPanelUtils;

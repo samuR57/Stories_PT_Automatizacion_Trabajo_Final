@@ -24,6 +24,16 @@ class LabelsPanel {
 
     //Selector para el botón "Delete" en el cuadro de diálogo de confirmación
     confirmDeleteButton = By.css('button[data-aid="ConfirmationDialog__confirm"]');
+
+    //Selector para la opción "Rename" dentro del dropdown
+    renameLabelOption = By.css('li[data-aid="Rename"]');
+
+    //Selector para el campo de texto donde se renombra la etiqueta
+    renameLabelInput = By.css('div[class^="RenameLabel__inputContainer"] input[class^="RenameLabel__input"]');
+
+    //Selector para el botón "Apply" que confirma el renombrado
+    applyRenameButton = By.xpath('//button[@data-aid="CancelButton" and text()="Apply"]');
+
 }
 
 module.exports = new LabelsPanel();

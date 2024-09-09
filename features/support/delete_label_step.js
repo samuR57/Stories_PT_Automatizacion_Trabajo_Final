@@ -1,14 +1,13 @@
 const { Given, When, Then } = require('@cucumber/cucumber');
 const LabelPanelUtils = require('../support/utils_label_panel');
-const ProjectManagementPanel = require('../support/utils_project_management_panel');
 
 Given('the label panel is open for delete', async function () {
-    console.log('Opening the label panel');
+    console.log('the label panel is open for delete');
     await LabelPanelUtils.openLabelPanel();
 });
 
 When('I creation label', async function () {
-    console.log('Clicking the Add Label button');
+    console.log('I creation label');
     await LabelPanelUtils.clickAddLabelButton(); 
     await LabelPanelUtils.enterRandomLabelName();
     await LabelPanelUtils.clickConfirmAddLabelButton();
@@ -16,13 +15,13 @@ When('I creation label', async function () {
 });
 
 When('I delete label', async function () {
-    console.log('Opening the dropdown for the created label');
+    console.log('I delete label');
     await LabelPanelUtils.openLabelDropdown();
     await LabelPanelUtils.selectDeleteOption();
     await LabelPanelUtils.confirmDeleteLabel();
 });
 
 Then('the label should no longer be visible in the label panel', async function () {
-    console.log('Verifying the label was deleted');
+    console.log('the label should no longer be visible in the label panel');
     await LabelPanelUtils.verifyLabelDeleted();
 });
