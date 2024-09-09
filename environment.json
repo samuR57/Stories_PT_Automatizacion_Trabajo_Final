@@ -2,8 +2,8 @@
     "prod":{
         "urlUI":"https://www.pivotaltracker.com/",
         "userAdmin":{
-            "username": "samaelrojas01@gmail.com",
-            "password": "Interno-1234"
+            "username": "group1.diplomado@gmail.com",
+            "password": "Libertad22"
         },
         "userMember01":{
             "name": "testuser999",

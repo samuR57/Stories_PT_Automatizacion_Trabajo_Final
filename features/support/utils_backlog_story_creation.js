@@ -42,16 +42,11 @@ class StoryCreationUtils {
         await saveButton.click();
         await DriverFactory.myDriver.wait(until.elementIsVisible(addStoryButton), configuration.browser.timeout);
 
-        return projectName;  // Devuelve el nombre de la historia creada
+        return projectName; 
     }
 
     // Crea una nueva historia en el backlog con el título y la descripción proporcionados
     static async createStory(title, description) {
-        const backlogTabInactive = await DriverFactory.myDriver.findElements(StoriesPage.currentBacklogTabInactive);
-        if (backlogTabInactive.length > 0) {
-            await backlogTabInactive[0].click();
-        }
-
         const addStoryButton = await DriverFactory.myDriver.wait(until.elementLocated(StoriesPage.addStoryButton), 10000);
         await addStoryButton.click();
 

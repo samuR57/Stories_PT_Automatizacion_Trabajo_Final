@@ -3,9 +3,11 @@ const StoryCreationUtils = require('./utils_backlog_story_creation');
 const StoryButtonsUtils = require('./utils_backlog_story_buttons');
 const StoryPointsUtils = require('./utils_backlog_story_points');
 const StoryVerificationUtils = require('./utils_backlog_story_verification');
+const ProjectManagementPanel = require('./utils_project_management_panel');
 
 Given('I create a new story with title {string} and description {string}', async function (title, description) {
     console.log(`Created a story with title "${title}" and description "${description}"`);
+    await ProjectManagementPanel.openRandomBacklogOrIceboxPanel();
     await StoryCreationUtils.createStory(title, description); 
 });
 
