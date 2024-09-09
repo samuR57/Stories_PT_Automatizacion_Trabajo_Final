@@ -1,6 +1,5 @@
 const { Given, When, Then } = require('@cucumber/cucumber');
 const LabelPanelUtils = require('../support/utils_label_panel');
-const ProjectManagementPanel = require('../support/utils_project_management_panel');
 
 Given('the label panel is open', async function () {
     console.log('the label panel is open');

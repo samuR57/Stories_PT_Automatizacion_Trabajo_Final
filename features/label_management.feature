@@ -15,3 +15,10 @@ Scenario: Delete a created label from the label panel
     When I creation label
     When I delete label
     Then the label should no longer be visible in the label panel
+
+@US1_FS03_TC03 @login @createFirstProject @deleteFirstProject @functional @regression @PS
+Scenario: Rename a created label in the label panel
+    Given the label panel is open for renaming
+    When I create a label to rename
+    When I rename label
+    Then the label should be renamed and visible in the label panel
