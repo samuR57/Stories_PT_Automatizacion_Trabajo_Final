@@ -4,9 +4,11 @@ const StoryMovementUtils = require('./utils_backlog_story_movement');
 const StoryVerificationUtils = require('./utils_backlog_story_verification');
 const StoryPointsUtils = require('./utils_backlog_story_points');
 const StoryButtonsUtils = require('./utils_backlog_story_buttons');
+const ProjectManagementPanel = require('./utils_project_management_panel');
 
 Given('I will create 5 stories for the backlog', async function () {
     console.log('I will create 5 stories for the backlog');
+    await ProjectManagementPanel.openRandomBacklogOrIceboxPanel();
     await StoryCreationUtils.createMultipleStories(5); 
 });
 

@@ -3,9 +3,11 @@ const StoryCreationUtils = require('./utils_backlog_story_creation');
 const StoryPointsUtils = require('./utils_backlog_story_points');
 const StoryButtonsUtils = require('./utils_backlog_story_buttons');
 const StoryVerificationUtils = require('./utils_backlog_story_verification');
+const ProjectManagementPanel = require('./utils_project_management_panel');
 
 Given('I have created multiple stories in the backlog and modify one', async function () {
     console.log('Created multiple stories in the backlog');
+    await ProjectManagementPanel.openRandomBacklogOrIceboxPanel();
     await StoryCreationUtils.createMultipleStories(5);
 });
 
