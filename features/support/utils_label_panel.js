@@ -64,6 +64,54 @@ class LabelPanelUtils {
         const labelText = await createdLabel.getText();
         expect(labelText.toLowerCase()).to.equal(this.generatedLabelName.toLowerCase()); 
     }
+
+     // Método para abrir el dropdown de la etiqueta creada
+    static async openLabelDropdown() {
+        const createdLabel = await DriverFactory.myDriver.wait(
+            until.elementLocated(LabelsPanel.labelName),
+            configuration.browser.timeout
+        );
+        const actions = DriverFactory.myDriver.actions({ bridge: true });
+        await actions.move({ origin: createdLabel }).perform();
+        const dropdownButton = await DriverFactory.myDriver.wait(
+            until.elementLocated(LabelsPanel.labelDropdown),
+            configuration.browser.timeout
+        );
+        await dropdownButton.click();
+    }
+
+    // Método para seleccionar la opción "Delete" en el dropdown
+    static async selectDeleteOption() {
+        const deleteOption = await DriverFactory.myDriver.wait(
+            until.elementLocated(LabelsPanel.deleteLabelOption),
+            configuration.browser.timeout
+        );
+        await deleteOption.click();
+    }
+
+    // Método para confirmar la eliminación de la etiqueta en el cuadro de diálogo de confirmación
+    static async confirmDeleteLabel() {
+        const confirmDeleteButton = await DriverFactory.myDriver.wait(
+            until.elementLocated(LabelsPanel.confirmDeleteButton),
+            configuration.browser.timeout
+        );
+        await confirmDeleteButton.click();
+    }
+
+    // Método para verificar que la etiqueta fue eliminada
+    static async verifyLabelDeleted() {
+        const labelElements = await DriverFactory.myDriver.findElements(LabelsPanel.labelName);
+        let labelFound = false;
+        for (let labelElement of labelElements) {
+            const labelText = await labelElement.getText();
+            if (labelText.toLowerCase() === this.generatedLabelName.toLowerCase()) {
+                labelFound = true;
+                break;
+            }
+        }
+        expect(labelFound).to.be.false;
+    }
+
 }
 
 module.exports = LabelPanelUtils;
