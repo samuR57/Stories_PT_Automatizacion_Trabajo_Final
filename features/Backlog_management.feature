@@ -1,7 +1,7 @@
 @ui
 Feature: Backlog Management
 
-@US1_FS02_TC15 @login @createFirstProject @deleteFirstProject @functional @regression @PS
+@US1_FS02_TC15 @login @createFirstProject @deleteFirstProject @functional @interface
 Scenario: Separate and combine Current Iteration and Backlog panels
     Given the Current Iteration_Backlog panel is active
     When I split the Current Iteration and Backlog panels
