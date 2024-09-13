@@ -201,6 +201,35 @@ class StoryButtonsUtils {
         }
     }
 
+   // Método para abrir el dropdown de etiquetas dentro de una historia
+    static async openLabelDropdownInStory() {
+        const labelDropdown = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesPanel.labelDropdownInStory),
+            configuration.browser.timeout
+        );
+        await labelDropdown.click();
+    }
+
+    // Método para seleccionar la primera etiqueta disponible dentro del dropdown de etiquetas
+    static async selectAnyLabelInStoryDropdown() {
+        let labels = await DriverFactory.myDriver.wait(
+            until.elementsLocated(StoriesPanel.labelInDropdown),
+            configuration.browser.timeout
+        );
+        if (labels.length > 0) {
+            labels = await DriverFactory.myDriver.findElements(StoriesPanel.labelInDropdown);
+            await labels[0].click();
+        } 
+    }
+
+    // Método para verificar que al menos una etiqueta fue asignada correctamente a la historia
+    static async verifyLabelAssignedToStory() {
+        const assignedLabel = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesPanel.assignedLabelInStoryPreview), 
+            configuration.browser.timeout
+        );
+         const assignedLabelText = await assignedLabel.getText();
+    }
 }
 
 module.exports = StoryButtonsUtils;

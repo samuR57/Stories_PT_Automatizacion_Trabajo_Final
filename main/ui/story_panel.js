@@ -33,6 +33,15 @@ class StoryPanel{
 
     // Botón para confirmar la adición de la tarea
     confirmAddTaskButton = By.css('button[data-aid="addTaskButton"]');
+
+    // Dropdown para abrir el menú de etiquetas dentro de una historia
+    labelDropdownInStory = By.css('a[data-aid="StoryLabelsMaker__arrow"]');
+
+    // Selector para elegir una etiqueta dentro del dropdown de etiquetas
+    labelInDropdown = By.css('div[data-aid^="LabelDropdownItem--"]');
+
+    // Verificación de que la etiqueta se asignó correctamente a la historia
+    assignedLabelInStoryPreview = By.css('span.labels.post a.std.label');
 }
 
 module.exports = new StoryPanel();

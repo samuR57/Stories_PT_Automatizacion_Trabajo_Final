@@ -1,5 +1,5 @@
 const { Given, When, Then } = require('@cucumber/cucumber');
-const LabelPanelUtils = require('../support/utils_label_panel');
+const LabelPanelUtils = require('./utils_label_panel');
 
 Given('the label panel is open for delete', async function () {
     console.log('the label panel is open for delete');
