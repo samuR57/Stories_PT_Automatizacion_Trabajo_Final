@@ -1,7 +1,7 @@
 const { Given, When, Then } = require('@cucumber/cucumber');
-const LabelPanelUtils = require('../support/utils_label_panel');
-const StoryButtonsUtils = require('../support/utils_backlog_story_buttons');
-const StoryCreationUtils = require('../support/utils_backlog_story_creation');
+const LabelPanelUtils = require('./utils_label_panel');
+const StoryButtonsUtils = require('./utils_backlog_story_buttons');
+const StoryCreationUtils = require('./utils_backlog_story_creation');
 const ProjectManagementPanel = require('./utils_project_management_panel');
 
 Given('I create a label for assigned', async function () {
