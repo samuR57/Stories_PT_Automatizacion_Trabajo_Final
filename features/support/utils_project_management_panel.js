@@ -120,7 +120,6 @@ class ProjectManagementPanel {
             await this.closePanel(panel);
         }
         try {
-            console.log("Intentando abrir el panel seleccionado...");
             const panelToOpen = await DriverFactory.myDriver.wait(until.elementLocated(panelToOpenSelector), 10000);
             const isVisible = await panelToOpen.getAttribute('data-panel-visible');
             if (isVisible === "false") {
